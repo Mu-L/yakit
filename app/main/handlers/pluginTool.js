@@ -235,7 +235,6 @@ module.exports = (win, getClient) => {
         return await asyncGetYakScriptTagsAndType(params)
     })
 
-
     const asyncDeleteLocalPluginsByWhere = (params) => {
         return new Promise((resolve, reject) => {
             getClient().DeleteLocalPluginsByWhere(params, (err, data) => {

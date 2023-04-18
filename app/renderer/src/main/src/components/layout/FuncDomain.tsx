@@ -1931,8 +1931,8 @@ const UIOpNotice: React.FC<UIOpNoticeProp> = React.memo((props) => {
     const isUpdate = useMemo(() => {
         return isEnpriTraceAgent()
             ? yaklangLastVersion !== "" && yaklangLastVersion !== yaklangVersion
-            : (yakitLastVersion !== "" && yakitLastVersion !== yakitVersion) ||
-                  (yaklangLastVersion !== "" && yaklangLastVersion !== yaklangVersion)
+            : // (yakitLastVersion !== "" && yakitLastVersion !== yakitVersion) ||
+              yaklangLastVersion !== "" && yaklangLastVersion !== yaklangVersion
     }, [yakitVersion, yakitLastVersion, yaklangLastVersion, yaklangVersion])
 
     return (

@@ -93,7 +93,7 @@ export const UpdateYakitAndYaklang: React.FC<UpdateYakitAndYaklangProps> = React
                     setYakitUpdateContent({...data})
                 } catch (error) {}
             })
-            .catch((err) => {})
+            .catch((err) => { })
     })
     /** 获取 yaklang 更新内容 */
     const fetchYaklangLastVersion = useMemoizedFn(() => {
@@ -103,7 +103,7 @@ export const UpdateYakitAndYaklang: React.FC<UpdateYakitAndYaklangProps> = React
             diyHome: "https://www.yaklang.com",
             method: "get",
             url: "yak/versions",
-            params: {type: "yaklang", source: "community"}
+            params: { type: "yaklang", source: "community" }
         })
             .then((res: any) => {
                 if (!res) return
@@ -113,7 +113,7 @@ export const UpdateYakitAndYaklang: React.FC<UpdateYakitAndYaklangProps> = React
                     setYaklangUpdateContent({...data})
                 } catch (error) {}
             })
-            .catch((err) => {})
+            .catch((err) => { })
     })
 
     useEffect(() => {
@@ -264,8 +264,7 @@ export const UpdateYakitAndYaklang: React.FC<UpdateYakitAndYaklangProps> = React
             })
             .catch((err: any) => {
                 failed(
-                    `安装失败: ${
-                        err.message.indexOf("operation not permitted") > -1 ? "请关闭引擎后重启软件尝试" : err
+                    `安装失败: ${err.message.indexOf("operation not permitted") > -1 ? "请关闭引擎后重启软件尝试" : err
                     }`
                 )
             })
@@ -358,8 +357,8 @@ export const UpdateYakitAndYaklang: React.FC<UpdateYakitAndYaklangProps> = React
                                         {yakitContent.length === 0
                                             ? "管理员未编辑更新通知"
                                             : yakitContent.map((item, index) => {
-                                                  return <div key={`${item}-${index}`}>{item}</div>
-                                              })}
+                                                return <div key={`${item}-${index}`}>{item}</div>
+                                            })}
                                     </div>
 
                                     <div className={styles["hint-right-btn"]}>
@@ -447,8 +446,8 @@ export const UpdateYakitAndYaklang: React.FC<UpdateYakitAndYaklangProps> = React
                                         {yaklangContent.length === 0
                                             ? "管理员未编辑更新通知"
                                             : yaklangContent.map((item, index) => {
-                                                  return <div key={`${item}-${index}`}>{item}</div>
-                                              })}
+                                                return <div key={`${item}-${index}`}>{item}</div>
+                                            })}
                                     </div>
 
                                     <div className={styles["hint-right-btn"]}>

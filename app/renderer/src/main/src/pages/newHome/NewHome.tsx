@@ -842,12 +842,19 @@ const NewHome: React.FC<NewHomeProps> = (props) => {
     const setOpenPage = (param: RouteToPageProps) => {
         ipcRenderer.invoke("open-route-page", param)
     }
-
+    useEffect(() => {
+        ipcRenderer.on("fetch-new-home-refsh", (e, params) => {
+            getCustomizeMenus()
+        })
+        return () => {
+            ipcRenderer.removeAllListeners("fetch-new-home-refsh")
+        }
+    }, [])
     // 获取自定义菜单
     const getCustomizeMenus = () => {
         ipcRenderer
             .invoke("QueryYakScript", {
-                Pagination: genDefaultPagination(1000),
+                IncludedScriptNames: ["基础爬虫", "综合目录扫描与爆破"],
                 IsGeneralModule: true,
                 Type: "yak"
             } as QueryYakScriptRequest)

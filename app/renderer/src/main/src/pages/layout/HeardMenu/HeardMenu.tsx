@@ -802,7 +802,7 @@ const HeardMenu: React.FC<HeardMenuProps> = React.memo((props) => {
                                             {(!isDisable && (
                                                 <div
                                                     className={style["sub-menu-expand-item"]}
-                                                    style={{paddingLeft: index === 0 ? 0 : ""}}
+                                                    style={{ paddingLeft: index === 0 ? 0 : "" }}
                                                 >
                                                     <div className={style["sub-menu-expand-item-icon"]}>
                                                         <span className={style["item-icon"]}>{item.icon}</span>
@@ -840,13 +840,7 @@ const HeardMenu: React.FC<HeardMenuProps> = React.memo((props) => {
                                                             {(loading && <LoadingOutlined />) || item.icon}
                                                         </span>
                                                     </div>
-                                                    {(loading && nodeLabel) || (
-                                                        <Tooltip title='插件丢失，点击下载' placement='bottom'>
-                                                            {nodeLabel}
-                                                        </Tooltip>
-                                                    )}
-                                                </div>
-                                            )}
+                                                )}
                                             {index !== subMenuData.length - 1 && (
                                                 <div className={style["sub-menu-expand-item-line"]} />
                                             )}
@@ -884,7 +878,7 @@ const HeardMenu: React.FC<HeardMenuProps> = React.memo((props) => {
                         }}
                     />
                     <Form.Item label='配置 JSON'>
-                        <div style={{height: 400}}>
+                        <div style={{ height: 400 }}>
                             <YakCodeEditor
                                 refreshTrigger={refreshTrigger}
                                 originValue={StringToUint8Array(menuDataString, "utf8")}
@@ -970,7 +964,7 @@ const SubMenu: React.FC<SubMenuProps> = (props) => {
 }
 /** 宽度影响展示时的更多菜单 */
 const CollapseMenu: React.FC<CollapseMenuProp> = React.memo((props) => {
-    const {menuData, moreLeft, isExpand, onMenuSelect} = props
+    const { menuData, moreLeft, isExpand, onMenuSelect } = props
 
     const [show, setShow] = useState<boolean>(false)
 
@@ -989,7 +983,7 @@ const CollapseMenu: React.FC<CollapseMenuProp> = React.memo((props) => {
     )
 
     return (
-        <div className={style["heard-menu-more"]} style={{left: moreLeft}}>
+        <div className={style["heard-menu-more"]} style={{ left: moreLeft }}>
             <YakitPopover
                 placement={"bottomLeft"}
                 arrowPointAtCenter={true}

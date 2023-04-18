@@ -143,7 +143,7 @@ export const SetUserInfo: React.FC<SetUserInfoProp> = React.memo((props) => {
     // 修改头像
     const setAvatar = useMemoizedFn(async (file) => {
         await ipcRenderer
-            .invoke("upload-img", {path: file.path, type: file.type})
+            .invoke("upload-img", { path: file.path, type: file.type })
             .then((res) => {
                 let imgUrl: string = res.data
                 NetWorkApi<API.UpUserInfoRequest, API.ActionSucceeded>({
@@ -202,7 +202,7 @@ export const SetUserInfo: React.FC<SetUserInfoProp> = React.memo((props) => {
                 className='content-box'
                 style={
                     userInfo.role !== "admin"
-                        ? {display: "flex", justifyContent: "center", alignItems: "center", fontSize: 16}
+                        ? { display: "flex", justifyContent: "center", alignItems: "center", fontSize: 16 }
                         : {}
                 }
             >

@@ -70,5 +70,61 @@
     "request-progress": "^3.0.0",
     "sudo-prompt": "^9.2.1",
     "tree-kill": "^1.2.2"
+  },
+  "build": {
+    "directories": {
+      "output": "release"
+    },
+    "extraResources": [
+      {
+        "from": "bins/flag.txt",
+        "to": "bins/flag.txt"
+      },
+      {
+        "from": "bins/database",
+        "to": "bins/database",
+        "filter": [
+          "**/*",
+          "*.txt",
+          "*.gzip",
+          "!*.db"
+        ]
+      }
+    ],
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "app/assets/telecom_logo_small.ico",
+      "uninstallerIcon": "app/assets/telecom_logo_small.ico"
+    },
+    "productName": "单兵武器装备库",
+    "win": {
+      "icon": "app/assets/telecom_logo_small.ico",
+      "artifactName": "${productName}-${version}-windows-amd64.${ext}",
+      "extraResources": [
+        {
+          "from": "bins/flag.windows.txt",
+          "to": "bins/flag.windows.txt"
+        },
+        {
+          "from": "bins/yak_windows_amd64.zip",
+          "to": "bins/yak.zip"
+        }
+      ]
+    },
+    "mac": {
+      "icon": "app/assets/telecom.icns",
+      "artifactName": "${productName}-${version}-darwin-${arch}.${ext}",
+      "extraResources": [
+        {
+          "from": "bins/flag.darwin.txt",
+          "to": "bins/flag.darwin.txt"
+        },
+        {
+          "from": "bins/yak_darwin_amd64.zip",
+          "to": "bins/yak.zip"
+        }
+      ]
+    }
   }
 }

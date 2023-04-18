@@ -17,6 +17,9 @@ import {RemoteGV} from "@/yakitGV"
 import {YakitRoute} from "@/routes/newRoute"
 import emiter from "@/utils/eventBus/eventBus"
 const {ipcRenderer} = window.require("electron")
+import TelecomSmallLogo from "@/assets/img/telecom_logo_small.png"
+
+const { ipcRenderer } = window.require("electron")
 
 interface OnlineProfileProps {
     BaseUrl: string
@@ -26,8 +29,8 @@ interface OnlineProfileProps {
 }
 
 const layout = {
-    labelCol: {span: 5},
-    wrapperCol: {span: 19}
+    labelCol: { span: 5 },
+    wrapperCol: { span: 19 }
 }
 
 interface ConfigPrivateDomainProps {
@@ -270,7 +273,7 @@ export const ConfigPrivateDomain: React.FC<ConfigPrivateDomainProps> = React.mem
             {enterpriseLogin && (
                 <div className='login-title-show'>
                     <div className='icon-box'>
-                        <img src={yakitImg} className='type-icon-img' />
+                        <img src={TelecomSmallLogo} className='type-icon-img' />
                     </div>
                     <div className='title-box'>企业登录</div>
                 </div>

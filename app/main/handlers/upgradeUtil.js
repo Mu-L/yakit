@@ -574,7 +574,7 @@ module.exports = {
             if (fs.existsSync(targetFile)) {
                 return
             }
-            const buildinDBFile = loadExtraFilePath(path.join("bins", "database", "default-cve.db.gzip"));
+            const buildinDBFile = loadExtraFilePath(path.join("resources/bins", "database", "default-cve.db.gzip"));// 电信打包出来在 resources下
             if (fs.existsSync(buildinDBFile)) {
                 fs.copyFileSync(buildinDBFile, targetFile)
             }
@@ -584,7 +584,7 @@ module.exports = {
         ipcMain.handle("GetBuildInEngineVersion"
             /*"IsBinsExisted"*/,
             async (e) => {
-                const yakZipName = path.join("bins", "yak.zip")
+                const yakZipName = path.join("resources/bins", "yak.zip")
                 if (!fs.existsSync(loadExtraFilePath(yakZipName))) {
                     throw Error(`Cannot found yak.zip, bins: ${loadExtraFilePath(yakZipName)}`)
                 }

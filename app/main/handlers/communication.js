@@ -99,6 +99,13 @@ module.exports = (win, getClient) => {
         })
     })
 
+    /** 刷新tabs颜色展示 */
+    ipcMain.handle("refresh-tabs-color", async (e, params) => {
+        win.webContents.send("fetch-new-tabs-color", params)
+    })
+    ipcMain.handle("send-new-home-refsh", (e, params) => {
+        win.webContents.send("fetch-new-home-refsh", params)
+    })
     /** 简易企业版-打开固定报告 */
     ipcMain.handle("simple-open-report", async (e, params) => {
         win.webContents.send("fetch-simple-open-report", params)

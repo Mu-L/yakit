@@ -691,18 +691,6 @@ export const ScanPortForm: React.FC<ScanPortFormProp> = (props) => {
                         setValue={(Active) => setParams({...params, Active})}
                         value={params.Active}
                     />
-                    <SelectOne
-                        label={"服务指纹级别"}
-                        help={"级别越高探测的详细程度越多，主动发包越多，时间越长"}
-                        data={[
-                            {value: 1, text: "基础"},
-                            {value: 3, text: "适中"},
-                            {value: 7, text: "详细"},
-                            {value: 100, text: "全部"}
-                        ]}
-                        value={params.ProbeMax}
-                        setValue={(ProbeMax) => setParams({...params, ProbeMax})}
-                    />
                     <InputInteger
                         label={"主动发包超时时间"}
                         help={"某些指纹的检测需要检查目标针对某一个探针请求的响应，需要主动发包"}
@@ -925,15 +913,6 @@ export const ScanPortForm: React.FC<ScanPortFormProp> = (props) => {
                     </Form.Item>
                 </>
             )}
-
-            <Divider orientation={"left"}>其他配置</Divider>
-            <SwitchItem
-                label={"扫描结果入库"}
-                setValue={(SaveToDB) => {
-                    setParams({...params, SaveToDB, SaveClosedPorts: false})
-                }}
-                value={params.SaveToDB}
-            />
             {params.SaveToDB && (
                 <SwitchItem
                     label={"保存关闭的端口"}
