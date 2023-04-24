@@ -726,7 +726,7 @@ const UILayout: React.FC<UILayoutProp> = (props) => {
     useEffect(() => {
         ipcRenderer.on("activate-download-yaklang-or-yakit", (e: any, type: "yaklang" | "yakit") => {
             if (getYaklangDownload() || getYakitDownload()) return
-            if (type === "yakit") setYakitDownload(true)
+            // if (type === "yakit") setYakitDownload(true)
             if (type === "yaklang") setYaklangDownload(true)
         })
 
@@ -1253,18 +1253,6 @@ const UILayout: React.FC<UILayoutProp> = (props) => {
                                                     showProjectManage={linkDatabase}
                                                     system={system}
                                                     isJudgeLicense={isJudgeLicense}
-                                                />
-                                            </div>
-
-                                            <div className={styles["divider-wrapper"]}></div>
-                                            <div>
-                                                <FuncDomain
-                                                    isEngineLink={engineLink}
-                                                    isReverse={true}
-                                                    engineMode={engineMode || "remote"}
-                                                    isRemoteMode={engineMode === "remote"}
-                                                    onEngineModeChange={changeEngineMode}
-                                                    typeCallback={typeCallback}
                                                 />
                                             </div>
                                         </>

@@ -336,6 +336,8 @@ export const FuncDomain: React.FC<FuncDomainProp> = React.memo((props) => {
                 }
                 let cacheMenu = [
                     {key: "user-info", title: "用户信息", render: () => SetUserInfoModule()},
+                    {key: "upload-plugin", title: "同步插件"},
+                    {key: "hole-collect", title: "漏洞汇总"},
                     {key: "upload-data", title: "上传数据"},
                     {key: "dynamic-control", title: "发起远程"},
                     {key: "control-admin", title: "远程管理"},
@@ -1849,7 +1851,7 @@ const UIOpNotice: React.FC<UIOpNoticeProp> = React.memo((props) => {
                     {type === "update" && (
                         <div className={styles["notice-version-wrapper"]}>
                             <div className={styles["version-wrapper"]}>
-                                {userInfo.role === "superAdmin" && !isEnpriTraceAgent() && (
+                                {/* {userInfo.role === "superAdmin" && !isEnpriTraceAgent() && (
                                     <UIOpUpdateYakit
                                         version={yakitVersion}
                                         lastVersion={yakitLastVersion}
@@ -1873,7 +1875,7 @@ const UIOpNotice: React.FC<UIOpNoticeProp> = React.memo((props) => {
                                         updateContent={isEnterpriseEdition() ? companyYakit : communityYakit}
                                         onUpdateEdit={UpdateContentEdit}
                                     />
-                                )}
+                                )} */}
                                 <UIOpUpdateYaklang
                                     version={yaklangVersion}
                                     lastVersion={yaklangLastVersion}
