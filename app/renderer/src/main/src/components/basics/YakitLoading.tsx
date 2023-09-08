@@ -17,7 +17,6 @@ import TelecomSmallLogo from "@/assets/img/telecom_logo_small.png"
 import classnames from "classnames"
 import styles from "./yakitLoading.module.scss"
 import classNames from "classnames"
-import styles from "./yakitLoading.module.scss"
 import {getReleaseEditionName, isCommunityEdition, isEnpriTrace, isEnpriTraceAgent} from "@/utils/envfile"
 import { RemoteLinkInfo } from "../layout/UILayout"
 import { DynamicStatusProps } from "@/store"
@@ -563,7 +562,7 @@ export const YakitLoading: React.FC<YakitLoadingProp> = (props) => {
                             alt='logo'
                         />
                     </div>
-                    }
+                    
                     {/* 便携版 - 启动Logo */}
                     {
                         isEnpriTraceAgent()&& <div className={styles["yakit-loading-icon-wrapper"]}>

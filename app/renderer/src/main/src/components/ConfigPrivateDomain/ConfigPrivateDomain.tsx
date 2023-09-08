@@ -16,7 +16,6 @@ import {InformationCircleIcon} from "@/assets/newIcon"
 import {RemoteGV} from "@/yakitGV"
 import {YakitRoute} from "@/routes/newRoute"
 import emiter from "@/utils/eventBus/eventBus"
-const {ipcRenderer} = window.require("electron")
 import TelecomSmallLogo from "@/assets/img/telecom_logo_small.png"
 
 const { ipcRenderer } = window.require("electron")

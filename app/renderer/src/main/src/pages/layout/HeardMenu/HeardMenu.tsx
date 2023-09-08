@@ -840,6 +840,7 @@ const HeardMenu: React.FC<HeardMenuProps> = React.memo((props) => {
                                                             {(loading && <LoadingOutlined />) || item.icon}
                                                         </span>
                                                     </div>
+                                                </div>
                                                 )}
                                             {index !== subMenuData.length - 1 && (
                                                 <div className={style["sub-menu-expand-item-line"]} />
