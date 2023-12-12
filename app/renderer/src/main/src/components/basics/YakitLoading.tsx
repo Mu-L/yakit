@@ -21,6 +21,7 @@ import { RemoteLinkInfo } from "../layout/UILayout"
 import { DynamicStatusProps } from "@/store"
 import yakitSE from "@/assets/yakitSE.png";
 import yakitEE from "@/assets/yakitEE.png";
+import telecomLogoSmall from "@/assets/telecom_logo_small.png"
 
 const {ipcRenderer} = window.require("electron")
 
@@ -600,7 +601,7 @@ export const YakitLoading: React.FC<YakitLoadingProp> = (props) => {
                     {
                         isEnpriTraceAgent()&& <div className={styles["yakit-loading-icon-wrapper"]}>
                         <div className={styles["white-icon"]}>
-                            <img src={yakitSE} alt="暂无图片" />
+                            <img src={telecomLogoSmall} alt="暂无图片" />
                         </div>
                     </div>
                     }
