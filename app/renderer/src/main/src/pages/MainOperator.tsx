@@ -22,6 +22,7 @@ import {getRemoteValue, setLocalValue, setRemoteValue} from "@/utils/kv"
 import {NetWorkApi} from "@/services/fetch"
 import {API} from "@/services/swagger/resposeType"
 import {
+    getReleaseEditionName,
     globalUserLogin,
     isCommunityEdition,
     isEnpriTrace,
@@ -479,7 +480,7 @@ const Main: React.FC<MainProp> = React.memo((props) => {
         } else if (isEnpriTrace()) {
             return "EnpriTrace-试用版"
         } else if (isEnpriTraceAgent()) {
-            return "EnpriTraceAgent-试用版"
+            return getReleaseEditionName()
         }
         return ""
     }
