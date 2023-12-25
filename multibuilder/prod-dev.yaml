@@ -1,0 +1,43 @@
+appId: 'io.yaklang.yakit'
+productName: 'Yakit'
+copyright: Copyright © 2021 v1ll4n
+
+directories:
+  buildResources: resources
+  output: release/
+  app: .
+
+asar: true
+
+mac:
+  artifactName: ${productName}-${version}-darwin-${arch}.${ext}
+  extraFiles:
+    - from: "report/template.zip"
+      to: "report/template.zip"
+  target:
+    - target: dmg
+      arch:
+        - x64
+        - arm64
+  icon: "app/assets/yakitlogo.icns"
+
+linux:
+  artifactName: ${productName}-${version}-linux-amd64.${ext}
+  extraFiles:
+    - from: "report/template.zip"
+      to: "report/template.zip"
+  target:
+    - target: AppImage
+      arch:
+        - x64
+
+win:
+  artifactName: ${productName}-${version}-windows-amd64.${ext}
+  extraFiles:
+    - from: "report/template.zip"
+      to: "report/template.zip"
+  target:
+    - target: nsis
+      arch:
+        - x64
+  icon: "app/assets/yakitlogo.ico"

@@ -34,7 +34,8 @@
     "electron-publish-ee": "electron-builder --publish always -mwl --config ./multibuilder/electron-builder-ee.yaml",
     "electron-publish-se": "electron-builder --publish always -mwl --config ./multibuilder/electron-builder-se.yaml",
     "release-enpritrace": "electron-builder --publish always -mwl --config ./multibuilder/enpritrace.yml",
-    "release-breachtrace": "electron-builder --publish always -mwl --config ./multibuilder/breachtrace.yaml"
+    "release-breachtrace": "electron-builder --publish always -mwl --config ./multibuilder/breachtrace.yaml",
+    "electron-prodDev-ce": "electron-builder build -mwl --config ./multibuilder/prod-dev.yaml"
   },
   "keywords": [],
   "author": "",

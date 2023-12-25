@@ -1,0 +1,184 @@
+name: Yakit-PROD-DEV
+
+on:
+  push:
+    branches:
+      - "prodDev/*"
+
+jobs:
+  build_yakit:
+    runs-on: macos-latest
+    if: ${{ startsWith(github.ref, 'refs/heads/prodDev/*') }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16.15.0
+
+      - run: echo ${{ github.ref }}
+
+      - name: Echo Yakit Package Version
+        run: echo ${{ steps.extract_version.outputs.version }}
+
+      - run: yarn install && yarn install-render
+        working-directory: ./
+        name: "Install Dependencies"
+        env:
+          CI: ""
+          NODE_OPTIONS: --max_old_space_size=4096
+          
+      # CE
+      - run: yarn build-test-render
+        if: ${{ startsWith(github.ref, 'refs/heads/prodDev/ce') }}
+        working-directory: ./
+        name: "Build CE"
+        env:
+          CI: ""
+          NODE_OPTIONS: --max_old_space_size=4096
+      - name: Build Yakit (CE)
+        if: ${{ startsWith(github.ref, 'refs/heads/prodDev/ce') }}
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        working-directory: ./
+        run: |
+          yarn electron-prodDev-ce
+
+      # # EE
+      # - run: yarn build-render-test-enterprise
+      #   if: ${{ startsWith(github.ref, 'refs/heads/prodDev/ee') }}
+      #   working-directory: ./
+      #   name: "Build EE"
+      #   env:
+      #     CI: ""
+      #     NODE_OPTIONS: --max_old_space_size=4096
+      # - name: Build Yakit (EE)
+      #   if: ${{ startsWith(github.ref, 'refs/heads/prodDev/ee') }}
+      #   env:
+      #     GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      #   working-directory: ./
+      #   run: |
+      #     yarn electron-prodDev-ee
+
+      # # SE
+      # - run: yarn build-render-test-simple-enterprise
+      #   if: ${{ startsWith(github.ref, 'refs/heads/prodDev/se') }}
+      #   working-directory: ./
+      #   name: "Build SE"
+      #   env:
+      #     CI: ""
+      #     NODE_OPTIONS: --max_old_space_size=4096
+      # - name: Build Yakit (SE)
+        if: ${{ startsWith(github.ref, 'refs/heads/prodDev/se') }}
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        working-directory: ./
+        run: |
+          yarn electron-prodDev-se
+      
+      - name: View Published Content
+        run: ls ./release
+        #        Yakit-1.0.9-darwin-arm64.dmg
+        #        Yakit-1.0.9-darwin-arm64.dmg.blockmap
+        #        Yakit-1.0.9-darwin-x64.dmg
+        #        Yakit-1.0.9-darwin-x64.dmg.blockmap
+        #        Yakit-1.0.9-linux-amd64.AppImage
+        #        Yakit-1.0.9-windows-amd64.exe
+        #        Yakit-1.0.9-windows-amd64.exe.blockmap
+        #        builder-debug.yml
+        #        latest-linux.yml
+        #        latest-mac.yml
+        #        latest.yml
+        #        linux-unpacked
+        #        mac
+        #        mac-arm64
+        #        win-unpacked
+
+      # CE
+      - name: Upload Yakit(CE) Artifacts Windows
+        uses: actions/upload-artifact@v2
+        if: ${{ startsWith(github.ref, 'refs/heads/prodDev/ce') }}
+        with:
+          # Yakit-1.0.3-beta24-win32-x64.exe
+          name: Yakit-${{ steps.extract_version.outputs.version }}-windows-amd64.exe
+          path: ./release/Yakit-${{ steps.extract_version.outputs.version }}-windows-amd64.exe
+      - name: Upload Yakit(CE) Artifacts Mac(m1)
+        uses: actions/upload-artifact@v2
+        if: ${{ startsWith(github.ref, 'refs/heads/prodDev/ce') }}
+        with:
+          # Yakit-1.0.3-beta24-win32-x64.exe
+          name: Yakit-${{ steps.extract_version.outputs.version }}-darwin-arm64.dmg
+          path: ./release/Yakit-${{ steps.extract_version.outputs.version }}-darwin-arm64.dmg
+      - name: Upload Yakit(CE) Artifacts Mac(intel)
+        uses: actions/upload-artifact@v2
+        if: ${{ startsWith(github.ref, 'refs/heads/prodDev/ce') }}
+        with:
+          # Yakit-1.0.3-beta24-win32-x64.exe
+          name: Yakit-${{ steps.extract_version.outputs.version }}-darwin-x64.dmg
+          path: ./release/Yakit-${{ steps.extract_version.outputs.version }}-darwin-x64.dmg
+      - name: Upload Yakit(CE) Artifacts Linux
+        uses: actions/upload-artifact@v2
+        if: ${{ startsWith(github.ref, 'refs/heads/prodDev/ce') }}
+        with:
+          # Yakit-1.0.3-beta24-win32-x64.exe
+          name: Yakit-${{ steps.extract_version.outputs.version }}-linux-amd64.AppImage
+          path: ./release/Yakit-${{ steps.extract_version.outputs.version }}-linux-amd64.AppImage
+      
+      # # EE
+      # - name: Upload Yakit(EE) Artifacts Windows
+      #   uses: actions/upload-artifact@v2
+      #   if: ${{ startsWith(github.ref, 'refs/heads/prodDev/ee') }}
+      #   with:
+      #     # Yakit-1.0.3-beta24-win32-x64.exe
+      #     name: EnpriTrace-${{ steps.extract_version.outputs.version }}-windows-amd64.exe
+      #     path: ./release/EnpriTrace-${{ steps.extract_version.outputs.version }}-windows-amd64.exe
+      # - name: Upload Yakit(EE) Artifacts Mac(m1)
+      #   uses: actions/upload-artifact@v2
+      #   if: ${{ startsWith(github.ref, 'refs/heads/prodDev/ee') }}
+      #   with:
+      #     # Yakit-1.0.3-beta24-win32-x64.exe
+      #     name: EnpriTrace-${{ steps.extract_version.outputs.version }}-darwin-arm64.dmg
+      #     path: ./release/EnpriTrace-${{ steps.extract_version.outputs.version }}-darwin-arm64.dmg
+      # - name: Upload Yakit(EE) Artifacts Mac(intel)
+      #   uses: actions/upload-artifact@v2
+      #   if: ${{ startsWith(github.ref, 'refs/heads/prodDev/ee') }}
+      #   with:
+      #     # Yakit-1.0.3-beta24-win32-x64.exe
+      #     name: EnpriTrace-${{ steps.extract_version.outputs.version }}-darwin-x64.dmg
+      #     path: ./release/EnpriTrace-${{ steps.extract_version.outputs.version }}-darwin-x64.dmg
+      # - name: Upload Yakit(EE) Artifacts Linux
+      #   uses: actions/upload-artifact@v2
+      #   if: ${{ startsWith(github.ref, 'refs/heads/prodDev/ee') }}
+      #   with:
+      #     # Yakit-1.0.3-beta24-win32-x64.exe
+      #     name: EnpriTrace-${{ steps.extract_version.outputs.version }}-linux-amd64.AppImage
+      #     path: ./release/EnpriTrace-${{ steps.extract_version.outputs.version }}-linux-amd64.AppImage
+
+      # # SE
+      # - name: Upload Yakit(SE) Artifacts Windows
+      #   uses: actions/upload-artifact@v2
+      #   if: ${{ startsWith(github.ref, 'refs/heads/prodDev/se') }}
+      #   with:
+      #     # Yakit-1.0.3-beta24-win32-x64.exe
+      #     name: EnpriTraceAgent-${{ steps.extract_version.outputs.version }}-windows-amd64.exe
+      #     path: ./release/EnpriTraceAgent-${{ steps.extract_version.outputs.version }}-windows-amd64.exe
+      # - name: Upload Yakit(SE) Artifacts Mac(m1)
+      #   uses: actions/upload-artifact@v2
+      #   if: ${{ startsWith(github.ref, 'refs/heads/prodDev/se') }}
+      #   with:
+      #     # Yakit-1.0.3-beta24-win32-x64.exe
+      #     name: EnpriTraceAgent-${{ steps.extract_version.outputs.version }}-darwin-arm64.dmg
+      #     path: ./release/EnpriTraceAgent-${{ steps.extract_version.outputs.version }}-darwin-arm64.dmg
+      # - name: Upload Yakit(SE) Artifacts Mac(intel)
+      #   uses: actions/upload-artifact@v2
+      #   if: ${{ startsWith(github.ref, 'refs/heads/prodDev/se') }}
+      #   with:
+      #     # Yakit-1.0.3-beta24-win32-x64.exe
+      #     name: EnpriTraceAgent-${{ steps.extract_version.outputs.version }}-darwin-x64.dmg
+      #     path: ./release/EnpriTraceAgent-${{ steps.extract_version.outputs.version }}-darwin-x64.dmg
+      # - name: Upload Yakit(SE) Artifacts Linux
+        uses: actions/upload-artifact@v2
+        if: ${{ startsWith(github.ref, 'refs/heads/prodDev/se') }}
+        with:
+          # Yakit-1.0.3-beta24-win32-x64.exe
+          name: EnpriTraceAgent-${{ steps.extract_version.outputs.version }}-linux-amd64.AppImage
+          path: ./release/EnpriTraceAgent-${{ steps.extract_version.outputs.version }}-linux-amd64.AppImage
