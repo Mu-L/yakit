@@ -68,12 +68,12 @@ jobs:
       #     CI: ""
       #     NODE_OPTIONS: --max_old_space_size=4096
       # - name: Build Yakit (SE)
-        if: ${{ startsWith(github.ref, 'refs/heads/prodDev/se') }}
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        working-directory: ./
-        run: |
-          yarn electron-prodDev-se
+      #   if: ${{ startsWith(github.ref, 'refs/heads/prodDev/se') }}
+      #   env:
+      #     GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      #   working-directory: ./
+      #   run: |
+      #     yarn electron-prodDev-se
       
       - name: View Published Content
         run: ls ./release
