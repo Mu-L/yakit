@@ -1,8 +1,8 @@
 appId: 'io.yaklang.enpritrace'
 extraMetadata: 
   name: enpritrace
-productName: 'EnpriTrace'
-copyright: Copyright © 2021 v1ll4n
+productName: '单兵武器装备库'
+copyright: Copyright © 2024 yaklang.io
 
 extraFiles:
   - from: "bins/flag.txt"
@@ -48,7 +48,7 @@ mac:
       arch:
         - x64
         - arm64
-  icon: "app/assets/yakiteelogo.icns"
+  icon: "app/assets/telecom_logo_small.png"
 
 linux:
   artifactName: ${productName}-${version}-linux-amd64.${ext}
@@ -78,7 +78,7 @@ win:
     - target: nsis
       arch:
         - x64
-  icon: "app/assets/yakiteelogo.ico"
+  icon: "app/assets/telecom_logo_small.ico"
 
 #publish:
 #  - provider: generic
