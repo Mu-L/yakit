@@ -251,7 +251,9 @@ export const YakitRouteToPageInfo: Record<YakitRoute, {label: string; describe?:
     },
     poc: {label: "专项漏洞检测", describe: "通过预制漏洞源码，对特定目标进行专项漏洞检测，可以自定义新增 POC 种类"},
     "plugin-op": {label: "插件"},
-    brute: {label: "弱口令检测", describe: "对目标的登录账号、密码等进行爆破，在爆破前会进行未授权检测"},
+    brute: {
+        label: "弱口令检测",
+        describe: "对目标的登录账号、密码等进行爆破，在爆破前会进行未授权检测"},
     "plugin-store": {label: "插件商店", describe: "目前插件为6大类型，可根据需要灵活编写插件，支持从插件商店下载插件"},
     "plugin-owner": {label: "我的插件"},
     "plugin-local": {label: "本地插件"},
@@ -1413,6 +1415,243 @@ export const PrivateSimpleRouteMenu: PrivateRouteMenuProps[] = [
         ]
     }
 ]
+
+/**
+ * @name private版电信企业版菜单配置数据
+ * @description !注意 此版暂时不能进行菜单编辑,开放编辑请参考专家或扫描模式的菜单数据结构
+ * @description 修改只对简易版有效，别的模式需取对应模式数据进行修改
+ */
+export const PrivateDianxinRouteMenu: PrivateRouteMenuProps[] = [
+    {
+        page: undefined,
+        label: "漏洞扫描",
+        children: [
+            {
+                page: YakitRoute.Mod_ScanPort,
+                icon: <PrivateOutlineScanPortIcon />,
+                hoverIcon: <PrivateSolidScanPortIcon />,
+                label:"端口漏洞检测",
+            },
+            {
+                page: YakitRoute.Mod_Brute,
+                icon: <PrivateOutlineBruteIcon />,
+                hoverIcon: <PrivateSolidBruteIcon />,
+                label: "弱口令漏洞检测",
+            },
+            {
+                page: YakitRoute.PoC,
+                icon: <PrivateOutlinePocIcon />,
+                hoverIcon: <PrivateSolidPocIcon />,
+                ...YakitRouteToPageInfo[YakitRoute.PoC]
+            },
+            {
+                page: YakitRoute.BatchExecutorPage,
+                icon: <PrivateOutlineBatchPluginIcon />,
+                hoverIcon: <PrivateSolidBatchPluginIcon />,
+                label: "全插件漏洞检测",
+            }
+        ]
+    },
+    {
+        page: undefined,
+        label: "基础渗透",
+        children: [
+            {
+                page: YakitRoute.HTTPHacker,
+                icon: <PrivateOutlineMitmIcon />,
+                hoverIcon: <PrivateSolidMitmIcon />,
+                label: "流量抓包劫持",
+            },
+            {
+                page: YakitRoute.HTTPFuzzer,
+                icon: <PrivateOutlineWebFuzzerIcon />,
+                hoverIcon: <PrivateSolidWebFuzzerIcon />,
+                label: "WEB数据包爆破",
+            },
+            {
+                page: YakitRoute.WebsocketFuzzer,
+                icon: <PrivateOutlineWebsocketFuzzerIcon />,
+                hoverIcon: <PrivateSolidWebsocketFuzzerIcon />,
+                label: "Websocket数据包爆破",
+            }
+        ]
+    },
+    {
+        page: undefined,
+        label: "资产探测",
+        children: [
+            {
+                page: YakitRoute.Mod_ScanPort,
+                icon: <PrivateOutlineScanPortIcon />,
+                hoverIcon: <PrivateSolidScanPortIcon />,
+                label:"端口扫描",
+            },
+            {
+                page: YakitRoute.Plugin_OP,
+                label: "域名扫描",
+                icon: getFixedPluginIcon(ResidentPluginName.SubDomainCollection),
+                hoverIcon: getFixedPluginHoverIcon(ResidentPluginName.SubDomainCollection),
+                describe: getFixedPluginDescribe(ResidentPluginName.SubDomainCollection),
+                yakScripName: ResidentPluginName.SubDomainCollection
+            },
+            {
+                page: YakitRoute.Plugin_OP,
+                label: "目录扫描",
+                icon: getFixedPluginIcon(ResidentPluginName.DirectoryScanning),
+                hoverIcon: getFixedPluginHoverIcon(ResidentPluginName.DirectoryScanning),
+                describe: getFixedPluginDescribe(ResidentPluginName.DirectoryScanning),
+                yakScripName: ResidentPluginName.DirectoryScanning
+            },
+            {
+                page: YakitRoute.Plugin_OP,
+                label: "爬虫扫描",
+                icon: getFixedPluginIcon(ResidentPluginName.BasicCrawler),
+                hoverIcon: getFixedPluginHoverIcon(ResidentPluginName.BasicCrawler),
+                describe: getFixedPluginDescribe(ResidentPluginName.BasicCrawler),
+                yakScripName: ResidentPluginName.BasicCrawler
+            },
+        ]
+    },
+    {
+        page: undefined,
+        label: "漏洞利用插件",
+        children: [
+            {
+                page: YakitRoute.Plugin_Store,
+                icon: <PrivateOutlinePluginStoreIcon />,
+                hoverIcon: <PrivateSolidPluginStoreIcon />,
+                ...YakitRouteToPageInfo[YakitRoute.Plugin_Store]
+            },
+            {
+                page: YakitRoute.Plugin_Owner,
+                icon: <PrivateOutlinePluginOwnerIcon />,
+                hoverIcon: <PrivateSolidPluginOwnerIcon />,
+                ...YakitRouteToPageInfo[YakitRoute.Plugin_Owner]
+            },
+            {
+                page: YakitRoute.Plugin_Local,
+                icon: <PrivateOutlinePluginLocalIcon />,
+                hoverIcon: <PrivateSolidPluginLocalIcon />,
+                ...YakitRouteToPageInfo[YakitRoute.Plugin_Local]
+            }
+        ]
+    },
+    {
+        page: undefined,
+        label: "高级漏洞利用反连",
+        children: [
+            {
+                page: YakitRoute.ShellReceiver,
+                icon: <PrivateOutlineShellReceiverIcon />,
+                hoverIcon: <PrivateSolidShellReceiverIcon />,
+                label: "shell反连",
+            },
+            {
+                page: YakitRoute.ReverseServer_New,
+                icon: <PrivateOutlineReverseServerIcon />,
+                hoverIcon: <PrivateSolidShellReceiverIcon />,
+                label: "多协议反连"
+            },
+            {
+                page: YakitRoute.DNSLog,
+                icon: <PrivateOutlineDNSLogIcon />,
+                hoverIcon: <PrivateSolidDNSLogIcon />,
+                label: "DNS协议反连"
+            },
+            {
+                page: YakitRoute.ICMPSizeLog,
+                icon: <PrivateOutlineICMPSizeLogIcon />,
+                hoverIcon: <PrivateSolidICMPSizeLogIcon />,
+                label: "ICMP协议反连"
+            },
+            {
+                page: YakitRoute.TCPPortLog,
+                icon: <PrivateOutlineTCPPortLogIcon />,
+                hoverIcon: <PrivateSolidTCPPortLogIcon />,
+                label: "TCP协议反连"
+            },
+            {
+                page: YakitRoute.PayloadGenerater_New,
+                icon: <PrivateOutlinePayloadGeneraterIcon />,
+                hoverIcon: <PrivateSolidPayloadGeneraterIcon />,
+                label: "Java反序列化反连"
+            }
+        ]
+    },
+    {
+        page: undefined,
+        label: "辅助工具",
+        children: [
+            {
+                page: YakitRoute.Codec,
+                icon: <PrivateOutlineCodecIcon />,
+                hoverIcon: <PrivateSolidCodecIcon />,
+                label: "编/解码工具"
+            },
+            {
+                page: YakitRoute.DataCompare,
+                icon: <PrivateOutlineDataCompareIcon />,
+                hoverIcon: <PrivateSolidDataCompareIcon />,
+                label: "数据包详情对比"
+            },
+            {
+                page: YakitRoute.PayloadManager,
+                icon: <PrivateOutlineReverseServerIcon />,
+                hoverIcon: <PrivateSolidShellReceiverIcon />,
+                label: "攻击字典管理"
+            },
+            {
+                page: YakitRoute.YakScript,
+                icon: <PrivateOutlineMitmIcon />,
+                hoverIcon: <PrivateSolidMitmIcon />,
+                label: "Yak代码编写"
+            }
+        ]
+    },
+    {
+        page: undefined,
+        label: "数据展示",
+        children: [
+            {
+                page: YakitRoute.DB_Report,
+                icon: <PrivateOutlineReportIcon />,
+                hoverIcon: <PrivateSolidReportIcon />,
+                ...YakitRouteToPageInfo[YakitRoute.DB_Report]
+            },
+            {
+                page: YakitRoute.DB_Ports,
+                icon: <PrivateOutlinePortsIcon />,
+                hoverIcon: <PrivateSolidPortsIcon />,
+                ...YakitRouteToPageInfo[YakitRoute.DB_Ports]
+            },
+            {
+                page: YakitRoute.DB_Risk,
+                icon: <PrivateOutlineRiskIcon />,
+                hoverIcon: <PrivateSolidRiskIcon />,
+                ...YakitRouteToPageInfo[YakitRoute.DB_Risk]
+            },
+            {
+                page: YakitRoute.DB_Domain,
+                icon: <PrivateOutlineDomainIcon />,
+                hoverIcon: <PrivateSolidDomainIcon />,
+                ...YakitRouteToPageInfo[YakitRoute.DB_Domain]
+            },
+            {
+                page: YakitRoute.DB_HTTPHistory,
+                icon: <PrivateOutlineHTTPHistoryIcon />,
+                hoverIcon: <PrivateSolidHTTPHistoryIcon />,
+                label: "历史记录"
+            },
+            {
+                page: YakitRoute.DB_CVE,
+                icon: <PrivateOutlineCVEIcon />,
+                hoverIcon: <PrivateSolidCVEIcon />,
+                label: "CVE库管理"
+            }
+        ]
+    }
+]
+
 // 要全部删除，但是里面的内容还没确定好
 export enum Route {
     WebsocketHistory = "websocket-history",

@@ -87,7 +87,7 @@ export const ExtraMenu: React.FC<ExtraMenuProps> = React.memo((props) => {
                     导入资源
                 </YakitButton>
             </YakitPopover>
-            <YakitButton
+            {/* <YakitButton
                 type='secondary2'
                 onClick={() => {
                     onMenuSelect({route: YakitRoute.Codec})
@@ -121,7 +121,7 @@ export const ExtraMenu: React.FC<ExtraMenuProps> = React.memo((props) => {
                 }}
                 loadPluginMode={loadPluginMode}
                 sendPluginLocal={true}
-            />
+            /> */}
         </div>
     )
 })

@@ -336,7 +336,6 @@ export const FuncDomain: React.FC<FuncDomainProp> = React.memo((props) => {
                 }
                 let cacheMenu = [
                     {key: "user-info", title: "用户信息", render: () => SetUserInfoModule()},
-                    {key: "upload-plugin", title: "同步插件"},
                     {key: "hole-collect", title: "漏洞汇总"},
                     {key: "upload-data", title: "上传数据"},
                     {key: "dynamic-control", title: "发起远程"},

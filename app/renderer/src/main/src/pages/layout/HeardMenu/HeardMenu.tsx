@@ -41,13 +41,14 @@ import {failed, yakitNotify} from "@/utils/notification"
 import {YakScript} from "@/pages/invoker/schema"
 import {YakitSpin} from "@/components/yakitUI/YakitSpin/YakitSpin"
 import {useStore} from "@/store"
-import {isEnpriTraceAgent} from "@/utils/envfile"
+import {isEnpriTraceAgent,isEnpriTrace} from "@/utils/envfile"
 import {CodeGV, RemoteGV} from "@/yakitGV"
 import {
     DatabaseFirstMenuProps,
     DatabaseMenuItemProps,
     InvalidFirstMenuItem,
     InvalidPageMenuItem,
+    PrivateDianxinRouteMenu,
     PrivateExpertRouteMenu,
     PrivateScanRouteMenu,
     PrivateSimpleRouteMenu,
@@ -84,6 +85,10 @@ const HeardMenu: React.FC<HeardMenuProps> = React.memo((props) => {
     // 简易模式菜单
     const SimpleMenus = useMemo(() => {
         return privateExchangeProps(PrivateSimpleRouteMenu)
+    }, [])
+    // 电信模式菜单
+    const DianxinMenus = useMemo(() => {
+        return privateExchangeProps(PrivateDianxinRouteMenu)
     }, [])
 
     // 组件初始化的标志位
@@ -147,7 +152,16 @@ const HeardMenu: React.FC<HeardMenuProps> = React.memo((props) => {
             setSubMenuData(currentMenuList[0]?.children || [])
             setMenuId(currentMenuList[0]?.label)
             return
-        } else {
+        } 
+        // 此为电信企业版菜单-独立分支
+        else if(isEnpriTrace()){
+            let currentMenuList: EnhancedPrivateRouteMenuProps[] = [...DianxinMenus]
+            setRouteMenu(currentMenuList)
+            setSubMenuData(currentMenuList[0]?.children || [])
+            setMenuId(currentMenuList[0]?.label)
+            return
+        }
+        else {
             // 获取软件内菜单模式
             getRemoteValue(RemoteGV.PatternMenu).then((patternMenu) => {
                 const menuMode = patternMenu || "expert"
@@ -414,6 +428,7 @@ const HeardMenu: React.FC<HeardMenuProps> = React.memo((props) => {
             closable: false,
             title: "插件加载失败",
             showConfirmLoading: true,
+            type: "white",
             content: (
                 <div className={style["modal-content"]}>
                     {showName}菜单丢失，需点击重新下载，如仍无法下载，请前往插件商店查找
@@ -692,7 +707,7 @@ const HeardMenu: React.FC<HeardMenuProps> = React.memo((props) => {
                     {!isEnpriTraceAgent() && (
                         <>
                             <ExtraMenu onMenuSelect={onRouteMenuSelect} />
-                            <Dropdown
+                            {/* <Dropdown
                                 overlayClassName={style["customize-drop-menu"]}
                                 overlay={
                                     <>
@@ -759,7 +774,7 @@ const HeardMenu: React.FC<HeardMenuProps> = React.memo((props) => {
                                         自定义{(customizeVisible && <ChevronUpIcon />) || <ChevronDownIcon />}
                                     </div>
                                 </YakitButton>
-                            </Dropdown>
+                            </Dropdown> */}
                         </>
                     )}
                     {!isExpand && (
