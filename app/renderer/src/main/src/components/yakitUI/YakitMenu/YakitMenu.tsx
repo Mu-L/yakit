@@ -38,6 +38,21 @@ export interface YakitMenuProp extends MenuProps {
     size?: "default" | "rightMenu"
 }
 
+export const findMenuParentKeys = (data, targetKey: string, parentKeys: string[] = []) => {
+    for (const item of data) {
+        if (item.key === targetKey) {
+            return [item.key, ...parentKeys]
+        }
+        if (item.children) {
+            const foundInChild = findMenuParentKeys(item.children, targetKey, [item.key, ...parentKeys])
+            if (foundInChild) {
+                return foundInChild
+            }
+        }
+    }
+    return null
+}
+
 export const YakitMenu: React.FC<YakitMenuProp> = React.memo((props) => {
     const {
         data = [],
@@ -77,7 +92,6 @@ export const YakitMenu: React.FC<YakitMenuProp> = React.memo((props) => {
         } else {
             const info: YakitMenuItemProps = {...(data as any)}
             const hintTitle = !!info.title ? info.title : typeof info.label === "string" ? info.label : ""
-
             if (info.children && info.children.length > 0) {
                 const itemInfo: ItemType = {
                     label: (
@@ -117,7 +131,22 @@ export const YakitMenu: React.FC<YakitMenuProp> = React.memo((props) => {
                         menuTypeClass,
                         menuSizeClass,
                         popupClassName
-                    )
+                    ),
+                    onTitleClick: ({key, domEvent}) => {
+                        if (info.children) {
+                            // 超过2级不触发点击
+                            const keyPath = findMenuParentKeys(props.data, info.children[0].key)
+                            if (!info.children[0].children && keyPath.length === 2) {
+                                props.onClick &&
+                                    props.onClick({
+                                        key: info.children[0].key,
+                                        keyPath,
+                                        domEvent,
+                                        item: undefined as any
+                                    })
+                            }
+                        }
+                    }
                 }
                 const arr: ItemType[] = []
                 for (let item of info.children) {
@@ -168,7 +197,7 @@ export const YakitMenu: React.FC<YakitMenuProp> = React.memo((props) => {
 
     let items: ItemType[] = []
     if (data.length > 0) for (let item of data) items.push(generateMenuInfo(item))
-    
+
     return (
         <div className={classNames(styles["yakit-menu-div-wrapper"], menuTypeClass, menuSizeClass)}>
             <Menu

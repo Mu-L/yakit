@@ -91,7 +91,13 @@ export const EditorMenu: React.FC<EditorMenuProp> = React.memo((props) => {
                         menuTypeClass,
                         menuSizeClass,
                         popupClassName
-                    )
+                    ),
+                    onTitleClick: ({key, domEvent}) => {
+                        if (info.children) {
+                            const obj = info.children[0] as any as EditorMenuItemProps
+                            props.onClick && props.onClick({ key: obj.key, keyPath: [obj.key, key],  domEvent, item: undefined as any})
+                        }
+                    }
                 }
                 const arr: ItemType[] = []
                 for (let item of info.children) {
