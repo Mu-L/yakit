@@ -569,7 +569,7 @@ export const YakitLoading: React.FC<YakitLoadingProp> = (props) => {
                             <div className={styles["white-icon"]}>
                             <img src={telecomLogoSmall} alt="暂无图片" />
                         </div>
-                    </div>
+                    </div>)
                     }
 
                     <div className={styles["yakit-loading-content"]}>
