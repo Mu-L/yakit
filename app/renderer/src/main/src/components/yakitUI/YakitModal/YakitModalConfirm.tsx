@@ -56,6 +56,7 @@ export const YakitModalConfirm = (props: YakitModalConfirmProps) => {
                                     <div>
                                         <p>弹框内逻辑性崩溃，请关闭重试！</p>
                                         <pre>{error?.message}</pre>
+                                        <pre>{error?.stack}</pre>
                                     </div>
                                 )
                             }}
@@ -238,6 +239,7 @@ export const showYakitModal = (props: ShowModalProps) => {
                                     <div>
                                         <p>弹框内逻辑性崩溃，请关闭重试！</p>
                                         <pre>{error?.message}</pre>
+                                        <pre>{error?.stack}</pre>
                                     </div>
                                 )
                             }}
