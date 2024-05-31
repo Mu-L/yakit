@@ -4,7 +4,7 @@ import {LocalGVS} from "@/enums/localGlobal"
 import {getLocalValue} from "@/utils/kv"
 import {useMemoizedFn} from "ahooks"
 import {getRandomLocalEnginePort} from "../WelcomeConsoleUtil"
-import {isCommunityEdition} from "@/utils/envfile"
+import {getReleaseEditionName, isCommunityEdition} from "@/utils/envfile"
 import {failed, info, yakitNotify} from "@/utils/notification"
 import {YakitHint} from "@/components/yakitUI/YakitHint/YakitHint"
 import {UpdateYakitAndYaklang} from "../update/UpdateYakitAndYaklang"
@@ -87,13 +87,14 @@ export const LocalEngine: React.FC<LocalEngineProps> = memo(
         const preventUpdateHint = useRef<boolean>(false)
         /** 是否已弹出更新框 */
         const isShowedUpdateHint = useRef<boolean>(false)
-        /** 是否已弹出校验引擎来源弹窗 - 主要作用是是否直接连引擎（校验弹窗的出现和这个变量的值不一定是一致的） */
-        const isShowedCheckEngineSourceHint = useRef<boolean>(false)
+        /** 校验引擎来源 主要作用是是否直接连引擎（校验弹窗的出现和这个变量的值不一定是一致的） */
+        const checkEngineSourcePreventLinkLocalEnging = useRef<boolean>(false)
 
         // 2秒判断是否有更新 - 校验弹窗出现，没有则进入连接引擎
         const timingLinkLocalEnging = () => {
             setTimeout(() => {
-                if (isShowedCheckEngineSourceHint.current) return
+                console.log(checkEngineSourcePreventLinkLocalEnging.current, isShowedUpdateHint.current);
+                if (checkEngineSourcePreventLinkLocalEnging.current) return
                 if (isShowedUpdateHint.current) return
                 preventUpdateHint.current = true
                 handleLinkLocalEnging()
@@ -127,7 +128,6 @@ export const LocalEngine: React.FC<LocalEngineProps> = memo(
             new Promise((_, reject) => setTimeout(() => reject(new Error("Check engine source request timed out")), ms))
         const checkEngineSource = async (localYaklang: string) => {
             try {
-                console.log("校验引擎版本号：", localYaklang)
                 setLog([`本地引擎版本${localYaklang}，校验引擎正确性中`])
                 const [res1, res2] = await Promise.all([
                     Promise.race([ipcRenderer.invoke("fetch-check-yaklang-source", localYaklang), timeout(3000)]),
@@ -138,7 +138,7 @@ export const LocalEngine: React.FC<LocalEngineProps> = memo(
                     setLog(["引擎来源正确"])
                     handleFetchYakitAndYaklangLatestVersion()
                 } else {
-                    isShowedCheckEngineSourceHint.current = true
+                    checkEngineSourcePreventLinkLocalEnging.current = true
                     setVersionAbnormalVisible(true)
                 }
             } catch (error) {
@@ -149,8 +149,8 @@ export const LocalEngine: React.FC<LocalEngineProps> = memo(
         
         const onUseCurrentEngine = () => {
             setLog(["引擎校验已结束"])
-            isShowedCheckEngineSourceHint.current = false
             setVersionAbnormalVisible(false)
+            checkEngineSourcePreventLinkLocalEnging.current = false
             handleFetchYakitAndYaklangLatestVersion()
             timingLinkLocalEnging()
         }
@@ -221,8 +221,9 @@ export const LocalEngine: React.FC<LocalEngineProps> = memo(
         }
 
         const checkEngineDownloadLatestVersionCancel = () => {
-            isShowedCheckEngineSourceHint.current = true
+            checkEngineSourcePreventLinkLocalEnging.current = true
             setVersionAbnormalVisible(true)
+            setLinkCheckUpdate(false)
         }
         useEffect(() => {
             emiter.on("checkEngineDownloadLatestVersionCancel", checkEngineDownloadLatestVersionCancel)
@@ -282,14 +283,14 @@ export const LocalEngine: React.FC<LocalEngineProps> = memo(
         const initLink = useMemoizedFn(() => {
             isShowedUpdateHint.current = false
             preventUpdateHint.current = isCommunityEdition() ? false : true
-            isShowedCheckEngineSourceHint.current = false
+            checkEngineSourcePreventLinkLocalEnging.current = false
             handleCheckDataBase()
         })
         // 检查版本后直接连接
         const toLink = useMemoizedFn(() => {
             isShowedUpdateHint.current = false
             preventUpdateHint.current = !linkCheckUpdate
-            isShowedCheckEngineSourceHint.current = false
+            checkEngineSourcePreventLinkLocalEnging.current = false
             handleFetchYakitAndYaklangLocalVersion()
         })
 
