@@ -64,4 +64,19 @@ module.exports = (win, getClient) => {
     ipcMain.handle("ResetGlobalNetworkConfig", async (e, params) => {
         return await asyncResetGlobalNetworkConfig(params)
     })
+
+    const asyncGetThirdPartyAppConfigTemplate = () => {
+        return new Promise((resolve, reject) => {
+            getClient().GetThirdPartyAppConfigTemplate({}, (err, data) => {
+                if (err) {
+                    reject(err)
+                    return
+                }
+                resolve(data)
+            })
+        })
+    }
+    ipcMain.handle("GetThirdPartyAppConfigTemplate", async (e) => {
+        return await asyncGetThirdPartyAppConfigTemplate()
+    })
 }
