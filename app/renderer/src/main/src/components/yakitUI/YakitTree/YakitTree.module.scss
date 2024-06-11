@@ -24,6 +24,11 @@
         .ant-tree-list-scrollbar-thumb {
             background: #c1c1c1 !important;
             width: 6px !important;
+            transition: top 0.35s ease;
+        }
+
+        .ant-tree .ant-tree-treenode {
+            padding: 0;
         }
 
         .ant-tree-treenode.ant-tree-treenode-switcher-open:not(.ant-tree-treenode-selected),

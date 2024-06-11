@@ -113,7 +113,7 @@ export const HTTPHistory: React.FC<HTTPHistoryProp> = (props) => {
                 i.contShow = false
             }
         })
-        setRemoteValue(RemoteGV.HistoryLeftTabs, JSON.stringify(hTTPHistoryTabs))
+        // setRemoteValue(RemoteGV.HistoryLeftTabs, JSON.stringify(hTTPHistoryTabs))
         setHTTPHistoryTabs([...hTTPHistoryTabs])
         setCurTabKey(key)
     }
