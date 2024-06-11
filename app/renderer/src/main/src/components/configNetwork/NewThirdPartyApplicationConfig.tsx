@@ -145,13 +145,37 @@ export const NewThirdPartyApplicationConfig: React.FC<ThirdPartyApplicationConfi
         return options.findIndex((item) => item.value === typeVal) !== -1
     }, [options, typeVal])
 
+    const initialValues = useMemo(() => {
+        const copyFormValues = {...formValues}
+        Object.keys(copyFormValues).forEach((key) => {
+            if (copyFormValues[key] === "true") {
+                copyFormValues[key] = true
+            } else if (copyFormValues[key] === "false") {
+                copyFormValues[key] = false
+            }
+        })
+        return copyFormValues
+    }, [formValues])
+
     return (
         <Form
             form={form}
             layout={"horizontal"}
             labelCol={{span: 5}}
             wrapperCol={{span: 18}}
-            initialValues={{...formValues}}
+            initialValues={initialValues}
+            onValuesChange={(changedValues, allValues) => {
+                // 当类型改变时，表单项的值采用默认值
+                if (changedValues.Type !== undefined) {
+                    const templatesobj = templates.find((item) => item.Name === changedValues.Type)
+                    const formItems = templatesobj?.Items || []
+                    formItems.forEach((item) => {
+                        form.setFieldsValue({
+                            [item.Name]: item.Type === "string" ? item.DefaultValue : item.DefaultValue === "true"
+                        })
+                    })
+                }
+            }}
             onSubmitCapture={(e) => {
                 e.preventDefault()
             }}
