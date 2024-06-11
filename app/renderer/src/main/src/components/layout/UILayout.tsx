@@ -63,9 +63,7 @@ import {GlobalNetworkConfig} from "../configNetwork/ConfigNetworkPage"
 import {showYakitModal} from "../yakitUI/YakitModal/YakitModalConfirm"
 import {YakitGetOnlinePlugin} from "@/pages/mitm/MITMServerHijacking/MITMPluginLocalList"
 import {CodecParamsProps} from "../yakChat/chatCS"
-import NewThirdPartyApplicationConfig, {
-    GetThirdPartyAppConfigTemplateResponse
-} from "../configNetwork/NewThirdPartyApplicationConfig"
+import NewThirdPartyApplicationConfig from "../configNetwork/NewThirdPartyApplicationConfig"
 
 const {ipcRenderer} = window.require("electron")
 
@@ -1032,17 +1030,10 @@ const UILayout: React.FC<UILayoutProp> = (props) => {
             }
             if (val.isAiPlugin) {
                 try {
-                    const res: GetThirdPartyAppConfigTemplateResponse = await ipcRenderer.invoke(
-                        "GetThirdPartyAppConfigTemplate"
-                    )
-                    const templates = res.Templates || []
-                    let aiOptions = templates.filter((item) => item.Type === "ai").map((item) => item.Name)
+                    const res = await ipcRenderer.invoke("CheckHahValidAiConfig")
                     apiGetGlobalNetworkConfig().then((obj: GlobalNetworkConfig) => {
-                        const configType = obj.AppConfigs.map((item) => item.Type).filter((item) =>
-                            aiOptions.includes(item)
-                        )
                         // 如若已配置 则打开执行框
-                        if (configType.length > 0) {
+                        if (res.Ok) {
                             openAIByChatCS({...val})
                         } else {
                             let m = showYakitModal({
