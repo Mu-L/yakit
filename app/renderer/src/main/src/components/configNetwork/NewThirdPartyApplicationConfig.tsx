@@ -102,7 +102,7 @@ export const NewThirdPartyApplicationConfig: React.FC<ThirdPartyApplicationConfi
             }
             setOptions(newOptions)
         })
-    }, [])
+    }, [isOnlyShowAiType])
 
     // 切换类型，渲染不同表单项（目前只有输入框、开关）
     const renderAllFormItems = useMemoizedFn(() => {
@@ -145,15 +145,36 @@ export const NewThirdPartyApplicationConfig: React.FC<ThirdPartyApplicationConfi
         return options.findIndex((item) => item.value === typeVal) !== -1
     }, [options, typeVal])
 
+    const initialValues = useMemo(() => {
+        const copyFormValues = {...formValues}
+        Object.keys(copyFormValues).forEach((key) => {
+            if (copyFormValues[key] === "true") {
+                copyFormValues[key] = true
+            } else if (copyFormValues[key] === "false") {
+                copyFormValues[key] = false
+            }
+        })
+        return copyFormValues
+    }, [formValues])
+
     return (
         <Form
             form={form}
             layout={"horizontal"}
             labelCol={{span: 5}}
             wrapperCol={{span: 18}}
-            initialValues={{...formValues}}
-            onValuesChange={(changedFields, allFields) => {
-                console.log("表单值改变", allFields)
+            initialValues={initialValues}
+            onValuesChange={(changedValues, allValues) => {
+                // 当类型改变时，表单项的值采用默认值
+                if (changedValues.Type !== undefined) {
+                    const templatesobj = templates.find((item) => item.Name === changedValues.Type)
+                    const formItems = templatesobj?.Items || []
+                    formItems.forEach((item) => {
+                        form.setFieldsValue({
+                            [item.Name]: item.Type === "string" ? item.DefaultValue : item.DefaultValue === "true"
+                        })
+                    })
+                }
             }}
             onSubmitCapture={(e) => {
                 e.preventDefault()
@@ -187,7 +208,6 @@ export const NewThirdPartyApplicationConfig: React.FC<ThirdPartyApplicationConfi
                     type={"primary"}
                     onClick={() => {
                         form.validateFields().then((res) => {
-                            console.log("提交参数", res)
                             const ExtraParams = Object.keys(res)
                                 .filter((key) => key !== "Type")
                                 .map((key) => ({Key: key, Value: res[key]}))

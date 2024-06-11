@@ -642,6 +642,7 @@ export const ConfigNetworkPage: React.FC<ConfigNetworkPageProp> = (props) => {
                                                             (e) => i.Type !== e.Type
                                                         )
                                                     })
+                                                    setTimeout(() => submit(), 100)
                                                 }}
                                             >
                                                 {i.Type}
