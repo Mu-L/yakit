@@ -2985,9 +2985,9 @@ export const PluginAIComponent: React.FC<PluginAIComponentProps> = (props) => {
     })
     const updateExtraInfo = useMemoizedFn((extra) => {
         setPluginAIItem((lastItem) =>
-            lastItem.map((item) => {
+            lastItem.map((item, index) => {
                 if (!item.isMe) {
-                    if (!item.info.extra || JSON.stringify(item.info.extra) === "{}") {
+                    if (lastItem.length === index + 1) {
                         item.info.extra = extra || {}
                     }
                 }
@@ -2995,9 +2995,9 @@ export const PluginAIComponent: React.FC<PluginAIComponentProps> = (props) => {
             })
         )
         setPluginAIList((newPluginAIList) =>
-            newPluginAIList.map((item) => {
+            newPluginAIList.map((item, index) => {
                 if (!item.isMe) {
-                    if (!item.info.extra || JSON.stringify(item.info.extra) === "{}") {
+                    if (newPluginAIList.length === index + 1) {
                         item.info.extra = extra || {}
                     }
                 }
