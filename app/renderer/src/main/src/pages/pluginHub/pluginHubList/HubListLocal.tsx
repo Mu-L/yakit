@@ -635,6 +635,7 @@ export const HubListLocal: React.FC<HubListLocalProps> = memo((props) => {
                                 selected={selectedNum}
                                 search={search}
                                 setSearch={setSearch}
+                                onSearch={()=>{}}
                                 filters={{}}
                                 setFilters={() => {}}
                             >

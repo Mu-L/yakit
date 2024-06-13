@@ -135,6 +135,8 @@ import {
 } from "./deprecatedMenu"
 import {SimpleDetect} from "@/pages/simpleDetect/SimpleDetect"
 import {YakitRoute} from "../enums/yakitRoute"
+import { PluginHubDetail } from "@/pages/pluginHub/pluginHubDetail/PluginHubDetail"
+import { PluginHubList } from "@/pages/pluginHub/pluginHubList/PluginHubList"
 
 const HTTPHacker = React.lazy(() => import("../pages/hacker/httpHacker"))
 const NewHome = React.lazy(() => import("@/pages/newHome/NewHome"))
@@ -416,7 +418,9 @@ export const RouteToPage: (props: PageItemProps) => ReactNode = (props) => {
     const {routeKey, yakScriptId, params} = props
     switch (routeKey) {
         case YakitRoute.NewHome:
-            return <NewHome />
+            // return <NewHome />
+            // return <PluginHubDetail/>
+            return <PluginHubList/>
         case YakitRoute.HTTPHacker:
             return (
                 <Suspense fallback={<PageLoading />}>

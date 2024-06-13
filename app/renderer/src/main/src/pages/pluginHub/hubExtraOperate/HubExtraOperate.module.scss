@@ -1,0 +1,52 @@
+/* ---------- HubExtraOperate ----------*/
+.hub-extra-operate {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+    .btn-group {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 4px;
+    }
+    .divider-style {
+        width: 1px;
+        height: 12px;
+        background-color: #eaecf3;
+    }
+}
+
+/* ---------- HubButton ----------*/
+.hub-button-hidden {
+    display: none !important;
+}
+
+/* ---------- HubOperateHint ----------*/
+.hub-operate-hint {
+    .operate-style {
+        color: #f28b44;
+    }
+    .content-style {
+        color: #85899e;
+    }
+}
+
+/* ---------- RemovePluginMenuContent ----------*/
+.remove-plugin-menu-content {
+    padding: 24px;
+    gap: 8px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* ---------- AddPluginMenuContent ----------*/
+.add-plugin-menu-content{
+    padding: 12px;
+    .form-btn-group{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 8px;
+    }
+}

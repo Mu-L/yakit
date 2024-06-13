@@ -30,6 +30,7 @@ import {YakitSpin} from "@/components/yakitUI/YakitSpin/YakitSpin"
 import classNames from "classnames"
 import SearchResultEmpty from "@/assets/search_result_empty.png"
 import styles from "./PluginHubList.module.scss"
+import useGetSetState from "../hooks/useGetSetState"
 
 interface HubListRecycleProps {}
 /** @name 插件回收站 */
@@ -55,7 +56,7 @@ export const HubListRecycle: React.FC<HubListRecycleProps> = memo((props) => {
     // 选中插件
     const [selectList, setSelectList] = useState<YakitPluginOnlineDetail[]>([])
     // 搜索条件
-    const [search, setSearch] = useState<PluginSearchParams>(cloneDeep(defaultSearch))
+    const [search, setSearch, getSearch] = useGetSetState<PluginSearchParams>(cloneDeep(defaultSearch))
 
     const showIndex = useRef<number>(0)
     const setShowIndex = useMemoizedFn((index: number) => {
@@ -86,12 +87,12 @@ export const HubListRecycle: React.FC<HubListRecycleProps> = memo((props) => {
                       limit: response.pagemeta.limit || 20
                   }
 
-            const query: PluginsQueryProps = convertPluginsRequestParams({}, search, params)
+            const query: PluginsQueryProps = convertPluginsRequestParams({}, getSearch(), params)
             try {
                 const res = await apiFetchRecycleList(query)
+                if (!res.data) res.data = []
                 const length = +res.pagemeta.page === 1 ? res.data.length : res.data.length + response.data.length
                 hasMore.current = length < +res.pagemeta.total
-                if (!res.data) res.data = []
                 dispatch({
                     type: "add",
                     payload: {
@@ -140,20 +141,33 @@ export const HubListRecycle: React.FC<HubListRecycleProps> = memo((props) => {
         setSelectList([])
         setAllChecked(value)
     })
+
+    /** 搜索内容 */
+    const onSearch = useDebounceFn(
+        useMemoizedFn((val: PluginSearchParams) => {
+            onCheck(false)
+            setSearch(val)
+            fetchList(true)
+        }),
+        {wait: 300, leading: true}
+    ).run
     /** ---------- 列表相关方法 End ---------- */
 
     const listLength = useMemo(() => {
         return Number(response.pagemeta.total) || 0
     }, [response])
+    const disabledBatchBtn = useMemo(() => {
+        return !listLength
+    }, [listLength])
     const isSearch = useMemo(() => {
         if (search.type === "keyword") return !!search.keyword
         if (search.type === "userName") return !!search.userName
         return false
     }, [search])
-    const selectedNum = useMemo(() => selectList.length, [selectList])
-    const disabledBatchBtn = useMemo(() => {
-        return !Number(response.pagemeta.total)
-    }, [response.pagemeta.total])
+    const selectedNum = useMemo(() => {
+        if (allChecked) return response.pagemeta.total
+        else return selectList.length
+    }, [allChecked, selectList, response.pagemeta.total])
 
     // 批量操作的信息整合
     const handleBatchRequest = useMemoizedFn(() => {
@@ -340,7 +354,7 @@ export const HubListRecycle: React.FC<HubListRecycleProps> = memo((props) => {
     })
 
     // 批量的删除和还原
-    const headerExtra = useMemo(() => {
+    const headerExtra = () => {
         return (
             <div className={styles["hub-list-header-extra"]}>
                 <HubButton
@@ -366,9 +380,9 @@ export const HubListRecycle: React.FC<HubListRecycleProps> = memo((props) => {
                 />
             </div>
         )
-    }, [wrapperWidth, selectedNum, disabledBatchBtn, batchDelLoading, batchRestoreLoading])
+    }
     // 单项的删除和还原
-    const extraFooter = useMemoizedFn((info: YakitPluginOnlineDetail) => {
+    const extraFooter = (info: YakitPluginOnlineDetail) => {
         return (
             <RecycleOptFooterExtra
                 isLogin={isLogin}
@@ -379,22 +393,23 @@ export const HubListRecycle: React.FC<HubListRecycleProps> = memo((props) => {
                 onRestore={onFooterExtraRestore}
             />
         )
-    })
+    }
 
     return (
-        <div className={styles["plugin-hub-tab-list"]}>
+        <div ref={divRef} className={styles["plugin-hub-tab-list"]}>
             <OnlineJudgment isJudgingLogin={true}>
                 <YakitSpin spinning={loading && isInitLoading.current}>
                     {listLength > 0 ? (
                         <HubOuterList
                             title='回收站'
-                            headerExtra={headerExtra}
+                            headerExtra={headerExtra()}
                             allChecked={allChecked}
                             setAllChecked={onCheck}
                             total={response.pagemeta.total}
                             selected={selectedNum}
                             search={search}
                             setSearch={setSearch}
+                            onSearch={onSearch}
                             filters={{}}
                             setFilters={() => {}}
                         >
@@ -435,13 +450,12 @@ export const HubListRecycle: React.FC<HubListRecycleProps> = memo((props) => {
                     ) : isSearch ? (
                         <YakitEmpty
                             image={SearchResultEmpty}
-                            imageStyle={{width: 274, height: 180, marginBottom: 24}}
+                            imageStyle={{margin: "0 auto 24px", width: 274, height: 180}}
                             title='搜索结果“空”'
-                            style={{paddingTop: "10%"}}
-                            className={styles["hub-list-recycle-empty"]}
+                            className={styles["hub-list-empty"]}
                         />
                     ) : (
-                        <div className={styles["hub-list-recycle-empty"]}>
+                        <div className={styles["hub-list-empty"]}>
                             <YakitEmpty title='暂无数据' />
                             <div className={styles["refresh-buttons"]}>
                                 <YakitButton type='outline1' icon={<OutlineRefreshIcon />} onClick={onRefresh}>

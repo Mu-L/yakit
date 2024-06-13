@@ -448,6 +448,7 @@ export const HubListOwn: React.FC<HubListOwnProps> = memo((props) => {
                                     selected={selectedNum}
                                     search={search}
                                     setSearch={setSearch}
+                                    onSearch={()=>{}}
                                     filters={{}}
                                     setFilters={() => {}}
                                 >
