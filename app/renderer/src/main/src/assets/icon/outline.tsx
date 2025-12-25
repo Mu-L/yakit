@@ -5249,14 +5249,21 @@ export const OutlineStoreIcon = (props: Partial<IconProps>) => {
 }
 
 const OutlineWrench = () => (
-    <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18' fill='none'>
-        <path
-            d='M4.77377 6.13832L7.82103 9.18558M11.8808 13.2454L9.55631 10.9209M14.9777 2.02887C13.5544 1.28595 11.7569 1.51217 10.5615 2.70755C9.36613 3.90292 9.1399 5.70045 9.88282 7.12374L2.55257 14.454C2.16204 14.8445 2.16204 15.4777 2.55257 15.8682L2.74015 16.0558C3.13067 16.4463 3.76384 16.4463 4.15436 16.0558L11.4846 8.72553C12.9079 9.46845 14.7054 9.24223 15.9008 8.04685C17.0962 6.85148 17.3224 5.05395 16.5795 3.63066L14.566 5.64416C14.2711 5.93905 13.793 5.93905 13.4981 5.64416L12.9642 5.11023C12.6693 4.81535 12.6693 4.33725 12.9642 4.04237L14.9777 2.02887ZM14.589 14.3517L13.3888 13.1516C12.9983 12.7611 12.3652 12.7611 11.9746 13.1516L11.787 13.3392C11.3965 13.7297 11.3965 14.3629 11.7871 14.7534L12.9872 15.9535C13.3777 16.344 14.0109 16.344 14.4014 15.9535L14.589 15.7659C14.9795 15.3754 14.9795 14.7422 14.589 14.3517ZM1.26476 4.76503L2.9988 6.49907C3.38932 6.88959 4.02249 6.88959 4.41301 6.49907L5.13452 5.77756C5.52505 5.38704 5.52504 4.75387 5.13452 4.36335L3.40048 2.62931C3.00995 2.23878 2.37679 2.23878 1.98626 2.62931L1.26476 3.35081C0.874233 3.74134 0.874233 4.3745 1.26476 4.76503Z'
-            stroke='currentColor'
-            strokeWidth='1.5'
-            strokeLinecap='round'
-            strokeLinejoin='round'
-        />
+    <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'>
+        <g clipPath='url(#clip0_31752_46880)'>
+            <path
+                d='M7.38273 8.8818L10.6824 12.1814M15.0784 16.5775L12.5614 14.0604M18.4318 4.432C16.8906 3.62755 14.9442 3.87251 13.6498 5.16689C12.3554 6.46127 12.1105 8.40767 12.9149 9.94883L4.91901 17.9448C4.52848 18.3353 4.52848 18.9684 4.91901 19.359L5.23925 19.6792C5.62977 20.0697 6.26294 20.0697 6.65346 19.6792L14.6494 11.6833C16.1905 12.4877 18.1369 12.2428 19.4313 10.9484C20.7257 9.65403 20.9707 7.70762 20.1662 6.16646L17.9859 8.34672C17.6666 8.66603 17.1489 8.66603 16.8296 8.34672L16.2515 7.76857C15.9322 7.44927 15.9322 6.93157 16.2515 6.61227L18.4318 4.432ZM18.0694 17.834L16.6528 16.4174C16.2622 16.0268 15.6291 16.0268 15.2385 16.4174L14.9183 16.7376C14.5278 17.1281 14.5278 17.7613 14.9183 18.1518L16.3349 19.5685C16.7255 19.959 17.3586 19.959 17.7491 19.5685L18.0694 19.2482C18.4599 18.8577 18.4599 18.2245 18.0694 17.834ZM3.52454 7.33621L5.51932 9.33099C5.90985 9.72152 6.54301 9.72152 6.93354 9.33099L7.83193 8.4326C8.22245 8.04208 8.22245 7.40891 7.83193 7.01839L5.83714 5.0236C5.44662 4.63308 4.81345 4.63308 4.42293 5.0236L3.52454 5.922C3.13401 6.31252 3.13401 6.94568 3.52454 7.33621Z'
+                stroke='currentColor'
+                strokeWidth='1.5'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+            />
+        </g>
+        <defs>
+            <clipPath id='clip0_31752_46880'>
+                <rect width='24' height='24' fill='white' />
+            </clipPath>
+        </defs>
     </svg>
 )
 /**
@@ -6083,79 +6090,6 @@ export const SolidBookopenTextIcon = (props: Partial<IconProps>) => {
     return <Icon component={SolidBookopenText} {...props} />
 }
 
-const SolidChevronDoubleRight = () => (
-    <svg xmlns='http://www.w3.org/2000/svg' width='17' height='16' viewBox='0 0 17 16' fill='none'>
-        <path
-            d='M9 1L16 8L9 15M1 1L8 8L1 15'
-            strokeWidth='2'
-            stroke='currentColor'
-            strokeLinecap='round'
-            strokeLinejoin='round'
-        />
-    </svg>
-)
-
-/**
- * @description Outline/chevron-double-right
- */
-export const SolidChevronDoubleRightIcon = (props: Partial<IconProps>) => {
-    return <Icon component={SolidChevronDoubleRight} {...props} />
-}
-
-const SolidPuzzle = () => (
-    <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'>
-        <path
-            d='M11 4C11 2.89543 11.8954 2 13 2C14.1046 2 15 2.89543 15 4V5C15 5.55228 15.4477 6 16 6H19C19.5523 6 20 6.44772 20 7V10C20 10.5523 19.5523 11 19 11H18C16.8954 11 16 11.8954 16 13C16 14.1046 16.8954 15 18 15H19C19.5523 15 20 15.4477 20 16V19C20 19.5523 19.5523 20 19 20H16C15.4477 20 15 19.5523 15 19V18C15 16.8954 14.1046 16 13 16C11.8954 16 11 16.8954 11 18V19C11 19.5523 10.5523 20 10 20H7C6.44772 20 6 19.5523 6 19V16C6 15.4477 5.55228 15 5 15H4C2.89543 15 2 14.1046 2 13C2 11.8954 2.89543 11 4 11H5C5.55228 11 6 10.5523 6 10V7C6 6.44772 6.44772 6 7 6H10C10.5523 6 11 5.55228 11 5V4Z'
-            stroke='currentColor'
-            strokeWidth='1'
-            strokeLinecap='round'
-            strokeLinejoin='round'
-        />
-    </svg>
-)
-
-/**
- * @description Outline/puzzle
- */
-export const SolidPuzzleIcon = (props: Partial<IconProps>) => {
-    return <Icon component={SolidPuzzle} {...props} />
-}
-
-const OutlineLogs = () => (
-    <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'>
-        <path
-            d='M4.25 13.5C5.2165 13.5 6 12.7165 6 11.75C6 10.7835 5.2165 10 4.25 10C3.2835 10 2.5 10.7835 2.5 11.75C2.5 12.7165 3.2835 13.5 4.25 13.5Z'
-            stroke='currentColor'
-            strokeLinecap='round'
-            strokeLinejoin='round'
-        />
-        <path
-            d='M4.25 6C5.2165 6 6 5.2165 6 4.25C6 3.2835 5.2165 2.5 4.25 2.5C3.2835 2.5 2.5 3.2835 2.5 4.25C2.5 5.2165 3.2835 6 4.25 6Z'
-            stroke='currentColor'
-            strokeLinecap='round'
-            strokeLinejoin='round'
-        />
-        <path
-            d='M11.75 10.5C12.7165 10.5 13.5 9.7165 13.5 8.75C13.5 7.7835 12.7165 7 11.75 7C10.7835 7 10 7.7835 10 8.75C10 9.7165 10.7835 10.5 11.75 10.5Z'
-            stroke='currentColor'
-            strokeLinecap='round'
-            strokeLinejoin='round'
-        />
-        <path
-            d='M10 9H8.15625C7.71591 9.00088 7.28082 8.9044 6.88212 8.71748C6.48342 8.53055 6.13097 8.2578 5.85 7.91875L4.25 6V10'
-            stroke='currentColor'
-            strokeLinecap='round'
-            strokeLinejoin='round'
-        />
-    </svg>
-)
-/*
- * @description  Outline/log
- */
-export const OutlineLogsIcon = (props: Partial<IconProps>) => {
-    return <Icon component={OutlineLogs} {...props} />
-}
-
 const OutlinePin = () => (
     <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'>
         <path
@@ -6190,4 +6124,39 @@ const OutlinePinOff = () => (
  */
 export const OutlinePinOffIcon = (props: Partial<IconProps>) => {
     return <Icon component={OutlinePinOff} {...props} />
+}
+const OutlineBot = () => (
+    <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'>
+        <path
+            d='M12 7.5V3H7.6M1 14.25H3.2M20.8 14.25H23M15.3 13.125V15.375M8.7 13.125V15.375M5.4 7.5H18.6C19.815 7.5 20.8 8.50736 20.8 9.75V18.75C20.8 19.9926 19.815 21 18.6 21H5.4C4.18497 21 3.2 19.9926 3.2 18.75V9.75C3.2 8.50736 4.18497 7.5 5.4 7.5Z'
+            stroke='currentColor'
+            strokeWidth='1.5'
+            strokeLinecap='round'
+            strokeLinejoin='round'
+        />
+    </svg>
+)
+/*
+ * @description Outline/Bot
+ */
+export const OutlineBotIcon = (props: Partial<IconProps>) => {
+    return <Icon component={OutlineBot} {...props} />
+}
+
+const OutlineBookOpenText = () => (
+    <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'>
+        <path
+            d='M12 7C12 5.93913 11.5786 4.92172 10.8284 4.17157C10.0783 3.42143 9.06087 3 8 3H2V18H9C9.79565 18 10.5587 18.3161 11.1213 18.8787C11.6839 19.4413 12 20.2044 12 21M12 7V21M12 7C12 5.93913 12.4214 4.92172 13.1716 4.17157C13.9217 3.42143 14.9391 3 16 3H22V18H15C14.2044 18 13.4413 18.3161 12.8787 18.8787C12.3161 19.4413 12 20.2044 12 21M6 8H8M6 12H8M16 8H18M16 12H18'
+            stroke='currentColor'
+            strokeWidth='1.5'
+            strokeLinecap='round'
+            strokeLinejoin='round'
+        />
+    </svg>
+)
+/*
+ * @description Outline/BookOpenText
+ */
+export const OutlineBookOpenTextIcon = (props: Partial<IconProps>) => {
+    return <Icon component={OutlineBookOpenText} {...props} />
 }
